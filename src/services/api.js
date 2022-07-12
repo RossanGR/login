@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseUrl: 'http://localhost:8000/'
+    baseURL: 'http://localhost:8000'
 })
 
-export const createLoggin = async (email, password) =>{
-    return api.post('/auth/login', {email,password});
+export const createLoggin = async (email, senha) =>{
+    return api.post('/login', {email,senha});
 }
 
 export const getUser = async () =>{

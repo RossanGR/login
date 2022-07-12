@@ -5,7 +5,6 @@ import { api, createLoggin } from "../services/api";
 
 export const AuthContext = createContext();
 
-
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState();
     const navigate = useNavigate();
@@ -24,25 +23,21 @@ const AuthProvider = ({ children }) => {
 
     const login = async (email,password) =>{
         
-        const response = createLoggin(email,password);
-        console.log("Login Auth", response)
+        const response = await createLoggin(email,password);
+        console.log("Login Auth", response.data.user)
         
-
-
-        const loggedUser = response.data;
-        const token = response.data.access_token;
+        const loggedUser = response.data.user;
+        const token = response.data.token;
 
         localStorage.setItem("user", JSON.stringify(loggedUser));
         localStorage.setItem("token", token);
 
         api.defaults.headers.Authorization =  `Bearer ${token}`;
 
-        console.log(user);
-        
+        console.log(user);        
        
             setUser(loggedUser);
-            navigate('/'); 
-       
+            navigate('/');        
     }
 
     const logout = () =>{
